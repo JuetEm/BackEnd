@@ -1,0 +1,415 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: auto;
+  top: 0;
+  font-family: "Noto Sans KR", sans-serif;
+  word-break: keep-all;
+}
+
+.p-container_default {
+  max-width: 1140px;
+}
+
+div {
+  display: block;
+}
+@font-face {
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  src: local("※"), url("../fonts/Roboto-Regular.eot"),
+    url("../fonts/Roboto-Regular.eot#iefix") format("embedded-opentype") url("../fonts/Roboto-Regular.woff") format("woff"),
+    url("../fonts/Roboto-Regular.otf") format("opentype"), url("../fonts/Roboto-Regular.ttf") format("truetype");
+  unicode-range: U+0041-005A, U+0061-007A, U+0030-0039;
+}
+
+.p-navbar {
+  position: fixed;
+  top: 0;
+  justify-content: center;
+  display: flex;
+  align-items: flex-end;
+  height: 60px;
+  width: 100%;
+  border-bottom: 1px solid transparent;
+  background: #fff;
+  z-index: 10;
+}
+
+.p-navbar_border {
+  border-bottom: 1px solid #eee;
+}
+
+.p-navbar_inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px 60px;
+}
+
+.p-navbar_inner_logo-container {
+  height: 100%;
+  width: auto;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin-right: 24px;
+}
+
+.p-navbar_logo-icon {
+  display: flex;
+}
+
+.p-navbar_logo-icon img {
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  width: auto;
+}
+
+.p-navbar_inner {
+  max-width: 1140px;
+}
+
+.p-navbar_menu {
+  display: flex;
+  justify-content: space-between;
+}
+
+.p-navbar_items {
+  list-style: none;
+  margin-left: 10px;
+
+  font-size: 16px;
+}
+
+.p-navbar_items a {
+  padding: 12px 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #4e5968;
+}
+
+.p-navbar_items a:hover {
+  background: #eee;
+}
+
+main {
+  display: block;
+}
+
+section {
+  display: block;
+}
+
+.main-first {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+}
+
+.main-content1 {
+  display: block;
+  position: relative;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-text1 {
+  position: relative;
+  display: inline-block;
+
+  margin-top: 170px;
+  text-align: center;
+  margin-bottom: 50px;
+  font-size: 36px;
+  color: rgb(0, 0, 0);
+  line-height: 1.4;
+}
+
+.main-text1 img {
+  width: 300px;
+  margin-bottom: 30px;
+}
+
+.main-text1 h2 {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 50px;
+  font-weight: 700;
+  font-size: 54px;
+  color: rgb(0, 0, 0);
+  line-height: 1.4;
+}
+
+.main-text1 h2 span {
+  font-weight: 700;
+  color: #ed9441;
+}
+
+.main-button {
+  padding: 20px 40px;
+  background: #ed9441;
+  border: 0px;
+  border-radius: 50px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 28px;
+  letter-spacing: 1px;
+}
+
+.main-subtitle1 {
+  justify-content: center;
+  text-align: center;
+  padding: 100px 0px;
+  background: #f9fafb;
+}
+
+.main-subtitle1 p {
+  font-weight: 700;
+  font-size: 32px;
+  color: #191f28;
+  line-height: 1.6;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.arrow {
+  margin-bottom: 60px;
+  display: inline-block;
+}
+
+.arrow-down {
+  border: solid #aaa;
+  border-width: 0 4px 4px 0;
+  display: inline-block;
+  padding: 15px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+
+
+.main-content2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-content2-container {
+  width: 92%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 100px;
+  margin-top: 100px;
+}
+  
+
+.main-content2_imgBox {
+  position: relative;
+  max-width: 600px;
+  z-index: -10;
+}
+
+.main-content2_imgBox img {
+  width: 100%;
+  z-index: -10;
+}
+
+
+.main-text2 {
+  /* display: flex; */
+  padding: 0;
+} 
+
+
+.main-text2 h4 {
+  font-weight: 700;
+  color: #ed9441;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.main-text2 h3 {
+  font-weight: 700;
+  font-size: 50px;
+  margin-bottom: 30px;
+}
+
+.main-text2 p {
+  font-weight: 500;
+  font-size: 23px;
+  color: #999999;
+  line-height: 1.5;
+  right: 30px;
+  bottom: 166px;
+  max-width: 600px;
+}
+
+
+
+.main-content-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: right;
+}
+  
+.main-content2_imgBox {
+  position: relative;
+  max-width: 600px;
+  z-index: -10;
+}
+
+.main-content2_imgBox img {
+  max-height: 600px;
+  width: 100%;
+  z-index: -10;
+}
+
+
+
+
+
+.sub-button {
+  margin-top: 30px;
+  padding: 20px 40px;
+  background: #ed9441;
+  border: 0px;
+  border-radius: 50px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 24px;
+  letter-spacing: 1px;
+}
+
+
+
+.epilogue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f9fafb;
+}
+
+.epilogue-container {
+  width: 92%;
+  display: block;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 100px;
+  margin-top: 100px;
+  
+}
+
+.epilogue-container h4{
+  font-weight: 700;
+  font-size: 36px;
+  color: #ed9441;
+  line-height: 1.5;
+  right: 30px;
+  margin-bottom: 30px;
+}
+
+
+.epilogue-container p{
+  font-weight: 500;
+  font-size: 23px;
+  color: #999999;
+  line-height: 1.5;
+  right: 30px;
+  bottom: 166px;
+}
+
+.epilogue-container p span{
+  color: #333;
+}
+
+.mobile{
+  display: none;
+}
+
+
+@media all and (max-width:768px) {
+
+
+.main-text1 h2 {
+  font-size: 28px;
+}
+
+
+.main-text2 h4 {
+  font-size: 24px;
+}
+
+
+.main-text2 h3 {
+  font-size: 44px;
+}
+
+
+.main-text2 p {
+  font-size: 18px;
+}
+
+
+
+.main-subtitle1 p {
+  font-size: 18px;
+}
+
+  .main-content2-container {
+
+    display: block;
+    text-align: center;
+  }
+
+  .web{
+    display: none;
+  }
+
+  .mobile{
+    display: block;
+  }
+
+
+.main-content-right {
+  text-align: center;
+}
+    
+
+.main-content2_imgBox {
+margin-bottom: 40px;
+}
+
+
+
+.epilogue-container p{
+
+  font-size: 16px;
+
+
+}
+
+
+}

@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=yes">
+
+    <!-- HTML Meta Tags -->
+    <title>Better Coach Admin</title>
+    <meta name="description" content="Better Coach 베타 서비스 페이지">
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="http://icanidevelop.com">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="To Be Better Coach">
+    <meta property="og:description" content="Better Coach 베타 서비스 페이지">
+    <meta property="og:image" content="{{ url_for('static', filename='logo.png') }}">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="icanidevelop.com">
+    <meta property="twitter:url" content="http://icanidevelop.com">
+    <meta name="twitter:title" content="To Be Better Coach">
+    <meta name="twitter:description" content="Better Coach 베타 서비스 페이지">
+    <meta name="twitter:image" content="{{ url_for('static', filename='logo.png') }}">
+
+    <!-- Meta Tags Generated via https://www.opengraph.xyz -->
+
+
+    <title>베러코치, 잘나가는 강사들의 시크릿 관리자 페이지</title>
+
+    <!-- 1.css 링크-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <!-- 2.jQuery -->
+    <script src="{{ url_for('static', filename='jquery-3.6.1.min.js') }}"></script>
+    <!-- 3.Bootstrap 번들-->
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <!-- 4.DataTable -->
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap.min.js"></script>
+    <!-- 차트 링크 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+    <!-- 구글 메터리얼 아이콘 -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        /* .dateModiClass{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        } */
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 700,
+                'GRAD' 200,
+                'opsz' 48
+        }
+    </style>
+    <script>
+        var uidArray = [];
+        var nameMap = {};
+        $(function () {
+            var arrayInit = decodeURIComponent('{{admin_tester_1th_val}}');
+
+
+            $("#1thTesterTable").DataTable({
+                responsive: true,
+                select: true,
+                ordering: true,
+                paging: true
+            });
+
+            $(document).on('click', '.testerTdClass', function () {
+                console.log("testerTdClass 울려야지!?");
+                var id = $(this).attr('id');
+                var val = $(this).attr('value');
+                var userId = "#userId" + val;
+                var userName = "#name" + val;
+                var uid = $(userId).text();
+                var name = $(userName).text();
+                console.log('name : ' + name);
+                console.log("id : " + id + "\r\nval : " + val + "\r\nuserId : " + userId + "\r\nuid : " + uid);
+                var checkboxId = "#includeCheckbox" + val;
+                var isChecked = $(checkboxId).is(':checked');
+                // console.log('isChecked : '+isChecked);
+                // console.log('1. checkboxId : '+checkboxId);
+                $(checkboxId).prop("checked", !isChecked);
+                isChecked = !isChecked;
+                // console.log('2. checkboxId : '+checkboxId);
+                if (isChecked) {
+                    uidArray.push(uid);
+                    nameMap[uid.trim()] = name;
+                    console.log('nameMap[' + uid.trim() + '] : ' + nameMap[uid.trim()]);
+                } else {
+                    uidArray = uidArray.filter((e) => e !== uid);
+                }
+
+                console.log("uidArray : " + uidArray)
+            });
+
+            $(document).on('click', '.includeCheckboxClass', function () {
+                console.log("includeCheckboxClass 울려야지!?");
+                var id = $(this).attr('id');
+                var val = $(this).val();
+                var userId = "#userId" + val;
+                var uid = $(userId).text();
+                var checkboxId = "#" + id
+                var isChecked = $(checkboxId).is(':checked');
+                console.log("checkboxId : " + checkboxId);
+
+                // Checkbox UI 동작하도록 처리
+                $(checkboxId).prop("checked", !isChecked);
+
+                // 중복 동작 방지
+                // if(isChecked){
+                //     uidArray.push(uid);
+                // }else{
+                //     uidArray = uidArray.filter((e) => e !== uid);
+                // }
+            });
+
+            // 강사 전체 선택
+            $("#selectAllTr").click(function () {
+                // console.log("selectAllTr is called");
+                var isChecked = $("#selectAllCheckbox").is(':checked');
+                if (!isChecked) {
+                    $("input:checkbox[id='selectAllCheckbox']").prop("checked", !isChecked);
+                } else {
+                    $("input:checkbox[id='selectAllCheckbox']").prop("checked", !isChecked);
+                }
+
+                var uidArrayHtml = $('.1thTesterTbody > tr');
+
+                tmpUidList = []
+                tmpNameMap = {}
+                uidArrayHtml.each(function () {
+                    var tmpUid = $(this).children('td:eq(6)').text();
+                    var tmpName = $(this).children('td:eq(2)').text();
+                    console.log("tmpUid : " + tmpUid);
+                    console.log("tmpName : " + tmpName);
+                    tmpUidList.push(tmpUid);
+                    tmpNameMap[tmpUid.trim()] = tmpName;
+                });
+
+                console.log("tmpUidList : " + tmpUidList);
+                isChecked = !isChecked;
+                // console.log("isChecked : "+isChecked);
+                if (isChecked) {
+                    uidArray = tmpUidList;
+                    nameMap = tmpNameMap;
+                    $("input:checkbox[class='includeCheckboxClass']").prop("checked", true);
+                } else {
+                    uidArray = [];
+                    $("input:checkbox[class='includeCheckboxClass']").prop("checked", false);
+                }
+
+                console.log("uidArray : " + uidArray);
+            });
+
+            var ctx;
+            // 선택한 강사 수업 데이터 불러오기
+            $('#dataCallId').click(function () {
+                console.log("dataCallId is Called!\r\nuidArray : " + uidArray);
+                $('#chart').html = null;
+                $.ajax({
+                    type: "POST",
+                    traditional: true,
+                    url: "/getMembersData",
+                    data: {
+                        uidArray_give: uidArray
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        console.log("member_object_list_give : \r\n" + response["member_object_list_give"]);
+
+                        $('#chart').remove();
+                        $("#chartContainer").append('<canvas id="chart"></canvas>');
+                        ctx = $('#chart');
+                        
+                        // 일별 종합 노트 불러오기
+                        getDayLessonsData(uidArray);
+                    }
+                });
+            });
+
+            var backMonthAmount = 0;
+            var forwardMonthAmount = 0;
+            $(document).on('click','.dateModiClass',function(){
+                console.log("dateModiClass 울린다!");
+                if($(this).attr("id") == "monthBack"){
+                    console.log("이전달!!!");
+                    // getDateList(1, 0);
+                    backMonthAmount ++;
+                    $(".dateModiClass").css("display","none");
+                    $('#dataCallId').click();
+                }
+                else if($(this).attr("id") == "monthForward"){
+                    console.log("다음달!!!");
+                    // getDateList(0, 1);
+                    forwardMonthAmount ++;
+                    $(".dateModiClass").css("display","none");
+                    $('#dataCallId').click();
+                }
+            });
+
+
+            function getDateList(backMonthAmount, forwardMonthAmount) {
+                var now = new Date();
+                var year = now.getFullYear();
+                var month = now.getMonth() + 1 - backMonthAmount + forwardMonthAmount;
+                if(month > 12){
+                    year = year + 1;
+                    month = month - 12;
+                }
+                var date = now.getDate();
+                var lastDate = new Date(year, month, 0);
+                var lastNum = lastDate.getDate();
+
+                console.log("year : " + year + ", month : " + month + ", date : " + date
+                    + "\r\nlastDate : " + lastDate);
+
+                var monthDateList = [];
+                for (var i = 0; i < lastNum; i++) {
+                    monthDateList.push(year + "-" + month + "-" + (i + 1));
+                }
+                console.log(monthDateList);
+
+                var chart;
+
+                var startDate = new Date(monthDateList[0]);
+                var endDate = new Date(monthDateList[monthDateList.length - 1]);
+
+                var startDateStr;
+                var endDateStr;
+                // var startDateStr = startDate.substring(0,10).replace(/-/g,'');
+                var tmpDate = startDate.getDate();
+                var tmpStrLength = tmpDate.toString().length;
+                console.log("tmpDate.toString().length : " + tmpDate.toString().length);
+                if (tmpStrLength < 2) {
+                    tmpDate = "0" + tmpDate;
+                }
+                startDateStr = startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + '-' + tmpDate;
+                console.log('startDateStr : ' + startDateStr);
+
+                tmpDate = endDate.getDate();
+                tmpStrLength = tmpDate.toString().length;
+                if (tmpStrLength < 2) {
+                    tmpDate = "0" + tmpDate;
+                }
+                endDateStr = endDate.getFullYear() + '-' + (endDate.getMonth() + 1) + '-' + tmpDate;
+                console.log('endDateStr : ' + endDateStr);
+
+                dateList = [];
+                dateList.push(startDateStr);
+                dateList.push(endDateStr);
+                dateList.push(monthDateList);
+
+                return dateList;
+            }
+
+
+            var uidDataMapList;
+
+            // 일별 종합 노트 불러오기
+            function getDayLessonsData(uidArray) {
+
+                dateList = getDateList(backMonthAmount,forwardMonthAmount);
+                $.ajax({
+                    type: "POST",
+                    traditional: true,
+                    url: "/getDayLessonsData",
+                    data: {
+                        uidArray_give: uidArray,
+                        startDate_give: dateList[0].toString(),
+                        endDate_give: dateList[1].toString()
+                    },
+                    success: function (response) {
+                        console.log(response["daylesson_object_list_give"]);
+
+                        const isSameDate = (date1, date2) => {
+                            return date1.getFullYear() == date2.getFullYear()
+                                && date1.getMonth() == date2.getMonth()
+                                && date1.getDate() == date2.getDate();
+                        }
+
+                        var daylesson_data = [1, 2, 3, 4, 5, 4, 3, 2];
+                        var lessonnote_data = [0, 10, 5, 2, 20, 30, 45, 20];
+
+                        var docIdList = [];
+                        uidDataMapList = [];
+                        var dataPerUidMap;
+
+                        var tmpDayLessonData = response["daylesson_object_list_give"];
+
+                        for (var j = 0; j < uidArray.length; j++) {
+                            dataPerUidMap = new Object();
+                            daylesson_data = [];
+                            monthDateList = dateList[2];
+                            for (var k = 0; k < monthDateList.length; k++) {
+                                daylesson_data[k] = 0;
+                            }
+                            var uidStr = uidArray[j].trim();
+                            console.log("uidStr : " + uidStr);
+                            for (var i = 0; i < tmpDayLessonData.length; i++) {
+                                var tmpLessonDate = tmpDayLessonData[i]['lessonDate'];
+                                var tmpUid = tmpDayLessonData[i]['uid'];
+                                var tmpName = tmpDayLessonData[i]['name'];
+                                var tmpDocId = tmpDayLessonData[i]['docId'];
+                                if (uidStr == tmpUid) {
+                                    console.log('tmpUid : ' + tmpUid);
+                                    console.log('tmpName : ' + tmpName);
+                                    console.log('tmpLessonDate : ' + tmpLessonDate);
+                                    console.log('tmpDocId : ' + tmpDocId);
+
+                                    for (var k = 0; k < monthDateList.length; k++) {
+                                        var calDate = new Date(monthDateList[k]);
+                                        var tmpDate = new Date(tmpLessonDate);
+
+                                        if (isSameDate(calDate, tmpDate)) {
+                                            daylesson_data[k] += 1;
+                                            console.log("MATCH!!");
+                                            console.log("calDate : " + calDate);
+                                            console.log("tmpDate : " + tmpDate);
+
+                                            docIdList.push(tmpDocId);
+                                            break;
+                                        } else {
+                                            // console.log("UNMATCH!!");
+                                            // console.log("calDate : " + calDate);
+                                            // console.log("tmpDate : " + tmpDate);
+                                            // daylesson_data[k] = 0;
+                                        }
+                                    }
+                                }
+                            }
+                            dataPerUidMap.uid = uidArray[j].trim();
+                            dataPerUidMap.docIdList = docIdList;
+                            dataPerUidMap.daylessonData = daylesson_data;
+                            uidDataMapList.push(dataPerUidMap);
+
+                            // console.log("dataPerUidMap['docIdList'] : "+dataPerUidMap['docIdList']);
+                            // console.log("dataPerUidMap['daylessonData'] : "+dataPerUidMap['daylessonD0ata']);
+                            // console.log("uidDataMapList[" + j + "]['uid'] : " + uidDataMapList[j]['uid']);
+                            // console.log("uidDataMapList[" + j + "]['docIdList'] : " + uidDataMapList[j]['docIdList']);
+                            // console.log("uidDataMapList[" + j + "]['daylessonData'] : " + uidDataMapList[j]['daylessonData']);
+                        }
+
+                        getLessonNotesData(uidDataMapList);
+                    }
+                });
+            }
+
+            function getLessonNotesData(uidDataMapList) {
+                var jsonObject = JSON.stringify(uidDataMapList);
+                console.log("jsonObject : " + jsonObject);
+                dateList = getDateList(backMonthAmount,forwardMonthAmount);
+                jsonObject.startDate = dateList[0];
+                jsonObject.endDate = dateList[1];
+                monthDateList = dateList[2];
+                $.ajax({
+                    type: "POST",
+                    traditional: true,
+                    url: "/getLessonNotesData",
+                    data: {
+                        jsonData: jsonObject,
+                        startDate_give: dateList[0].toString(),
+                        endDate_give: dateList[1].toString()
+                    },
+                    success: function (response) {
+                        console.log('response["total_lessonnote_object_list_give"] : ');
+                        console.log(response["total_lessonnote_object_list_give"]);
+
+                        const isSameDate = (date1, date2) => {
+                            return date1.getFullYear() == date2.getFullYear()
+                                && date1.getMonth() == date2.getMonth()
+                                && date1.getDate() == date2.getDate();
+                        }
+
+                        var daylesson_data = [1, 2, 3, 4, 5, 4, 3, 2];
+                        var lessonnote_data = [0, 10, 5, 2, 20, 30, 45, 20];
+
+                        total_lessonnote_object_list = [];
+                        total_lessonnote_object_list = response["total_lessonnote_object_list_give"];
+
+                        var dataSetsList = [];
+                        var tmpUidListLength = total_lessonnote_object_list.length;
+                        console.log('tmpUidListLength : ' + tmpUidListLength);
+                        for (var i = 0; i < total_lessonnote_object_list.length; i++) {
+
+                            console.log('uidListLength : ' + uidListLength);
+
+                            lessonnote_data = new Array();
+                            for (var l = 0; l < monthDateList.length; l++) {
+                                lessonnote_data[l] = 0;
+                            }
+
+                            var uidListLength = total_lessonnote_object_list[i].length;
+                            for (var u = 0; u < total_lessonnote_object_list[i].length; u++) {
+                                var tmpLessonDate = total_lessonnote_object_list[i][u]['lessonDate'];
+                                console.log('tmpLessonDate : ' + tmpLessonDate);
+
+                                var tmpMonthDateListLength = monthDateList.length;
+                                console.log('tmpMonthDateListLength : ' + tmpMonthDateListLength);
+                                for (var k = 0; k < monthDateList.length; k++) {
+                                    var calDate = new Date(monthDateList[k]);
+                                    var tmpDate = new Date(tmpLessonDate);
+
+                                    if (isSameDate(calDate, tmpDate)) {
+                                        var tmpVal = lessonnote_data[k];
+                                        lessonnote_data[k] = tmpVal + 1;
+                                        console.log("MATCH!!");
+                                        console.log("calDate : " + calDate);
+                                        console.log("tmpDate : " + tmpDate);
+                                        break;
+                                    } else {
+                                        // console.log("UNMATCH!!");
+                                        // console.log("calDate : " + calDate);
+                                        // console.log("tmpDate : " + tmpDate);
+                                    }
+                                }
+
+                                if (uidListLength - 1 == u) {
+                                    daylesson_data = total_lessonnote_object_list[i][u]['daylessonData'];
+                                    console.log("last index!! u : " + u);
+                                    console.log('daylesson_data');
+                                    console.log(daylesson_data);
+                                    console.log('lessonnote_data');
+                                    console.log(lessonnote_data);
+
+                                    // console.log("arrayInit : "+arrayInit);
+
+
+                                    var tmpUid = total_lessonnote_object_list[i][u]['uid'];
+                                    console.log("total_lessonnote_object_list[i][u]['uid'] : " + tmpUid);
+
+                                    var rgbaVal = randomRgb();
+                                    dataSetsList.push(makeDayLessonData(daylesson_data, nameMap[tmpUid], rgbaVal));
+                                    dataSetsList.push(makeLessonNoteData(lessonnote_data, nameMap[tmpUid], rgbaVal));
+
+                                }
+                            }
+                        }
+
+
+
+                        var labelsList = [];
+                        for (var i = 0; i < monthDateList.length; i++) {
+                            var day = new Date(monthDateList[i]).getDay();
+                            var dayName = "";
+                            switch (day) {
+                                case 0:
+                                    dayName = 'SUN';
+                                    labelsList.push(monthDateList[i] + "(" + dayName + ")");
+                                    break;
+                                case 1:
+                                    dayName = 'MON';
+                                    labelsList.push(monthDateList[i] + "(" + dayName + ")");
+                                    break;
+                                case 2:
+                                    dayName = 'TUE';
+                                    labelsList.push(monthDateList[i] + "(" + dayName + ")");
+                                    break;
+                                case 3:
+                                    dayName = 'WED';
+                                    labelsList.push(monthDateList[i] + "(" + dayName + ")");
+                                    break;
+                                case 4:
+                                    dayName = 'THUR';
+                                    labelsList.push(monthDateList[i] + "(" + dayName + ")");
+                                    break;
+                                case 5:
+                                    dayName = 'FRI';
+                                    labelsList.push(monthDateList[i] + "(" + dayName + ")");
+                                    break;
+                                case 6:
+                                    dayName = 'SAT';
+                                    labelsList.push(monthDateList[i] + "(" + dayName + ")");
+                                    break;
+                            }
+
+                        }
+                        var mixedChart = {
+                            type: 'bar',
+                            labels: labelsList,
+                            datasets: dataSetsList
+                        };
+                        chart = new Chart(ctx, {
+                            // 챠트 종류를 선택
+                            type: 'bar',
+
+                            // 챠트를 그릴 데이타
+                            data: mixedChart,
+                            // 옵션
+                            options: {
+                                legend: {
+                                    display: true
+                                },
+                                scales: {
+                                    yAxes: [
+                                        {
+                                            id: 'A',
+                                            type: 'linear',
+                                            position: 'left',
+                                            ticks: {
+                                                // min: 0,
+                                                // max: 100,
+                                                // stepSize: 20,
+                                                fontColor: '#ffbaa2',
+                                                callback: function (value, index, values) {
+                                                    return value + ' lesson notes';
+                                                }
+                                            }
+                                        }, {
+                                            id: 'B',
+                                            type: 'linear',
+                                            position: 'right',
+                                            ticks: {
+                                                // min: 0,
+                                                // max: 30,
+                                                // stepSize: 6,
+                                                fontColor: '#91cf96',
+                                                callback: function (value, index, values) {
+                                                    return value + ' daily notes';
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+
+                            }
+                        });
+
+                        $(".dateModiClass").css('display','block');
+                    }
+                });
+            }
+
+            function makeDayLessonData(daylesson_data, name, rgbColor) {
+
+                var barData = {
+                    label: 'Day-' + name,
+                    yAxisID: 'B',
+                    data: daylesson_data,
+                    backgroundColor: rgbColor
+                };
+
+
+                return barData;
+            }
+
+            function makeLessonNoteData(lessonnote_data, name, rgbColor) {
+                var lineData = {
+                    label: 'Note-' + name,
+                    yAxisID: 'A',
+                    data: lessonnote_data,
+                    backgroundColor: 'transparent',
+                    borderColor: rgbColor,
+                    type: 'line'
+                };
+
+                return lineData;
+            }
+
+            function randomRgb() {
+                const r = Math.floor(Math.random() * 256);
+                const g = Math.floor(Math.random() * 256);
+                const b = Math.floor(Math.random() * 256);
+
+                return 'rgba(' + r + ',' + g + ',' + b + ',' + 0.5 + ')';
+            }
+        });
+    </script>
+
+    <!-- {# jinja2 문법 : flask => html 변수 전달
+
+    {% ... %} - 문장(Sentences)
+
+    {{  ...   }} - 표현식(Expressions)
+
+    {#  ...  #} - 주석
+
+    # ... ##  - 라인문장
+#} -->
+</head>
+
+<body>
+    <div class="container d-grid gap-2 col-6 mx-auto" style="width: 100%;">
+        <h2 style="margin: auto; margin-top: 30px;">베러코치 베타테스터 1기</h2>
+        <table id="1thTesterTable" class="table table-striped table-hover caption-top"
+            style="white-space: nowrap; text-align:center; margin: auto;">
+            <caption>List of Beta Testers of BetterCoach</caption>
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">NUM.</th>
+                    <th scope="col" id="selectAllTr">선택<input type="checkbox" id="selectAllCheckbox"
+                            style="display: none;"></th>
+                    <th scope="col">테스터</th>
+                    <th scope="col">이메일</th>
+                    <th scope="col">가입일</th>
+                    <th scope="col">방문일</th>
+                    <th scope="col">고유번호</th>
+                </tr>
+            </thead>
+            <tbody class="1thTesterTbody">
+                {# {% for idx in range(admin_tester_1th_val|length) %} #}
+                {% for userInfo in admin_tester_1th_val %}
+                <tr>
+                    {# {{admin_tester_1th_val[idx]['user']}} #}
+                    <!-- 순번 보여주는 for문 내부 함수 loop.index -->
+                    <td scope="row" class="numClass testerTdClass" value="{{loop.index}}">{{loop.index}}</td>
+                    <td class="testerTdClass" value="{{loop.index}}"><input type="checkbox" class="includeCheckboxClass"
+                            id="includeCheckbox{{loop.index}}" value="{{loop.index}}"></td>
+                    <td class="testerTdClass" id="name{{loop.index}}" value="{{loop.index}}">{{userInfo['user']}}</td>
+                    <td class="testerTdClass" id="email{{loop.index}}" value="{{loop.index}}">{{userInfo['email']}}</td>
+                    <td class="testerTdClass" id="registerDate{{loop.index}}" value="{{loop.index}}">
+                        {{userInfo['registerDate']}}</td>
+                    <td class="testerTdClass" id="lastLogIn{{loop.index}}" value="{{loop.index}}">
+                        {{userInfo['lastLogIn']}}</td>
+                    <td class="testerTdClass" id="userId{{loop.index}}" class="userIdClass" value="{{loop.index}}">
+                        {{userInfo['userId']}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="button" class="btn btn-outline-primary" id="dataCallId">데이터 불러오기</button>
+    </div>
+    <div style="display: flex; justify-content: center;">
+        <div id="monthBack" class="dateModiClass" style="margin: auto; display: none;"><!-- 이전달 -->
+            <span class="material-symbols-outlined" style="margin: 30px;">
+                arrow_back_ios
+            </span>
+        </div>
+        <!-- <div style="float: center; margin : auto; width: 10%;">이전달</div> -->
+        <!-- <div class="container" id="chartContainer" style="margin-top: 30px; float: center; width: 80%;"> -->
+        <div class="container" id="chartContainer" style="margin-top: 30px;">
+            <canvas id="chart"></canvas>
+        </div>
+        <!-- <div style="float: center; margin : auto; width: 10%;">다음달</div> -->
+        <div id="monthForward" class="dateModiClass" style="margin: auto; display: none;"><!-- 다음달 -->
+            <span class="material-symbols-outlined" style="margin: 30px;">arrow_forward_ios</span>
+        </div>
+    </div>
+    <script>
+
+
+    </script>
+</body>
+
+</html>

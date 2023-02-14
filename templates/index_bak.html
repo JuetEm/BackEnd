@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta property="og:title" content="BetterCoach Landing Page"/>
+    <meta property="og:description" content="Better Coach 서비스 랜딩 페이지 입니다."/>
+    <meta property="og:image" content="{{ url_for('static', filename='logo.png') }}"/>
+    
+    <title>JETT - 마케팅 대행의 모든것</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+
+<!-- <div class="p-navbar">
+    <div class="p-navbar_inner">
+        <div class="p-navbar_inner_logo-container">
+            <a class="p-navbar_logo-icon" href="#"><img src="jett-logo.svg" alt=""></a>
+        </div>
+        <div class="p-navbar_inner_content">
+            <ul class="p-navbar_menu">
+                <li class="p-navbar_items"><a href="">회사소개</a></li>
+                <li class="p-navbar_items"><a href="">고객센터</a></li>
+                <li class="p-navbar_items"><a href="">자주묻는질문</a></li>
+                <li class="p-navbar_items"><a href="">채용</a></li>
+            </ul>
+        </div>
+    </div>
+
+</div> -->
+<main>
+    <section class="main-content1">
+        <div class="main-first">
+            <div class="main-text1">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="">
+                <h2>실력있는 강사들의 시크릿<br><span>베러코치</span>와 함께</h2>
+                <button class="main-button">베타테스트 신청하기</button>
+                <p style="font-size: 16px;">(구글 폼링크로 연결)</p>
+            </div>
+            <div class="arrow">
+                <div class="arrow-down"></div>
+            </div>
+        </div>
+        <div class="main-subtitle1">
+            <p>
+                복잡하고 어려웠던 회원관리, 이젠 쉽게 경험하세요.<br>
+                실력있는 필라테스 강사를 위한 시크릿,<br>
+                베러코치와 함께 실력있는 강사로 성장하세요.
+            </p>
+        </div>
+
+    </section>
+    <section class="main-content2">
+        <div class="main-content2-container p-container_default">
+            <div class="main-text2">
+                <h4>회원관리</h4>
+                <h3>회원정보를<br>
+                    한눈에
+                </h3>
+                <p>회원의 운동목표, 통증/상해/병력, 체형분석 등,<br>
+                    수업에 들어가기 전 알아야 하는 회원의 정보를 한 눈에 보고 수업을 계획하세요.
+                </p>
+                <button class="sub-button">베타테스트 신청하기</button>
+            </div>
+            <div class="main-content2_imgBox"><img src="{{ url_for('static', filename='img/img01.png') }}" alt="" class="main-content2_img"></div>
+
+        </div>
+
+    </section>
+    <section class="main-content-right">
+        <div class="main-content2-container p-container_default">
+
+            <div class="main-content2_imgBox"><img src="{{ url_for('static', filename='img/img02.png') }}" alt="" class="main-content2_img"></div>
+            <div class="main-text2">
+                <h4>변화관리</h4>
+                <h3>동작별 수행도<br>
+                    꼼꼼히 체크하기
+                </h3>
+                <p>
+                    기구별/포지션별 동작을 선택하여, 회원의 동작 진행이 얼마나 나아졌는지 체크하세요.
+                    동작별 수행도와 메모 기록이 쌓이면서, 오늘의 수업을 더 효율적으로 계획할 수 있습니다.
+                </p>
+                <button class="sub-button">베타테스트 신청하기</button>
+            </div>
+        </div>
+
+    </section>
+</main>
+
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+
+<body>
+
+</body>
+
+</html>
